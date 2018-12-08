@@ -75,8 +75,7 @@ GameObject:
   - component: {fileID: 4376917058411338}
   - component: {fileID: 82200033626931236}
   - component: {fileID: 114118753607658238}
-  - component: {fileID: 54885778280127106}
-  - component: {fileID: 114716512363271464}
+  - component: {fileID: 54900839730482694}
   m_Layer: 0
   m_Name: Rocket Ship
   m_TagString: Untagged
@@ -135,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887195710544188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.39, z: 0}
+  m_LocalPosition: {x: -41, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4305306643393806}
@@ -339,7 +338,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946497403200230}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54885778280127106
+--- !u!54 &54900839730482694
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -508,18 +507,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d6e9c26bd3242fc8740f150eead734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rcsThrust: 100
-  mainThrust: 50
---- !u!114 &114716512363271464
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887195710544188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8d6e9c26bd3242fc8740f150eead734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rcsThrust: 75
+  rcsThrust: 250
   mainThrust: 1750
