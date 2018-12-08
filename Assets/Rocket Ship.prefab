@@ -346,13 +346,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887195710544188}
   serializedVersion: 2
-  m_Mass: 0.1
-  m_Drag: 0
+  m_Mass: 1
+  m_Drag: 0.3
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 56
   m_CollisionDetection: 0
 --- !u!65 &65307062447577354
 BoxCollider:
@@ -508,6 +508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d6e9c26bd3242fc8740f150eead734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rcsThrust: 100
+  mainThrust: 50
 --- !u!114 &114716512363271464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,3 +521,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d6e9c26bd3242fc8740f150eead734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rcsThrust: 75
+  mainThrust: 1750
