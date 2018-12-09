@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
 
@@ -8,6 +7,12 @@ public class Rocket : MonoBehaviour {
 	AudioSource audioSource;
 	[SerializeField] float rcsThrust = 100f;
 	[SerializeField] float mainThrust = 50f;
+	[SerializeField] AudioClip mainEngine;
+	[SerializeField] AudioClip death;
+	[SerializeField] AudioClip levelLoad;
+
+	enum State { Alive, Dying, Transcending };
+	State state = State.Alive;
 
 	// Use this for initialization
 	void Start () {
@@ -17,24 +22,53 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Thrust();
-		Rotate();
+		if (state == State.Alive) {
+			RespondToThrustInput();
+			RespondToRotateInput();
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision) {
-		print("Collided");
+		
+		if (state != State.Alive) { 
+			audioSource.Stop();
+			return; }
+
 		switch (collision.gameObject.tag){
 			case "Friendly": 
-				// do nothing
-				print("OK");
+				break;
+			case "Finish":
+				StartSuccessSequence();
 				break;
 			default:
-				print("Dead");
+				StartDeathSequence();
 				break;
 		}
 	}
 
-	private void Rotate() {
+	private void StartDeathSequence() {
+		state = State.Dying;
+		audioSource.Stop();
+		audioSource.PlayOneShot(death);
+		Invoke("LoadFirstLevel", 1f);
+	}
+
+	private void StartSuccessSequence() {
+		state = State.Transcending;
+		audioSource.Stop();
+		audioSource.PlayOneShot(levelLoad);
+		Invoke("LoadNextLevel", 1f); // parameterise time
+	}
+
+	private void LoadNextLevel() {
+		SceneManager.LoadScene(1);
+	}
+
+	private void LoadFirstLevel() {
+		SceneManager.LoadScene(0);
+	}
+
+	private void RespondToRotateInput() {
 		rigidbody.freezeRotation = true; // take manual control of rotation
 
 		// var rcsThrust = 100f;
@@ -49,15 +83,19 @@ public class Rocket : MonoBehaviour {
 		rigidbody.freezeRotation = false; // resume physics control of rotation
 	}
 
-	private void Thrust() {
+	private void RespondToThrustInput() {
 		float thrustThisFrame = mainThrust * Time.deltaTime;
 		if (Input.GetKey(KeyCode.Space)){
-			rigidbody.AddRelativeForce(Vector3.up * thrustThisFrame);
-			if (!audioSource.isPlaying) {
-				audioSource.Play();
-			}
+			ApplyThrust(thrustThisFrame);
 		} else {
 			audioSource.Stop();
+		}
+	}
+
+	private void ApplyThrust(float thrustThisFrame) {
+		rigidbody.AddRelativeForce(Vector3.up * thrustThisFrame);
+			if (!audioSource.isPlaying) {
+				audioSource.PlayOneShot(mainEngine);
 		}
 	}
 }
